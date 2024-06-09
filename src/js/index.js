@@ -16,30 +16,36 @@ passo 3 - fazer aparecer o cartão anterior da lista
 passo 4 - buscar o cartão que esta selecionado e esconder
 */
 
-/*
-OBJETIVO 1 - quando clicarmos na seta de avançar temos que mostrar o proximo 
-cartao da lista
-  
-passo 1 - dar um jeito de pegar o elemento HTML da seta avancar
-*/
 const btnAvancar = document.getElementById("btn-avancar");
 const btnVoltar = document.getElementById("btn-voltar");
 let cartaoAtual = 0;
 const cartoes = document.querySelectorAll(".cartao");
 
 btnAvancar.addEventListener("click", function () {
-    const cartaoSelecionado = document.querySelector(".selecionado");
-    if (cartaoAtual === cartoes.length - 1) return;
-    cartaoSelecionado.classList.remove("selecionado");
+    const ehUltimoCartao = cartaoAtual === cartoes.length - 1;
+    if (ehUltimoCartao) return;
+
+    esconderCartaoSelecionado();
+
     cartaoAtual++;
-    cartoes[cartaoAtual].classList.add("selecionado");
+    mostrarCartao();
 });
 
 btnVoltar.addEventListener("click", function () {
-    const cartaoSelecionado = document.querySelector(".selecionado");
-    if (cartaoAtual === 0) return;
-    cartaoSelecionado.classList.remove("selecionado");
+    const ehPrimeiroCartao = cartaoAtual === 0;
+    if (ehPrimeiroCartao) return;
+
+    esconderCartaoSelecionado();
+
     cartaoAtual--;
-    cartoes[cartaoAtual].classList.add("selecionado");
+    mostrarCartao();
 });
 
+function mostrarCartao() {
+    cartoes[cartaoAtual].classList.add("selecionado");
+}
+
+function esconderCartaoSelecionado() {
+    const cartaoSelecionado = document.querySelector(".selecionado");
+    cartaoSelecionado.classList.remove("selecionado");
+}
